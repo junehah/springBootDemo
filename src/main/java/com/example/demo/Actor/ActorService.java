@@ -26,4 +26,10 @@ public class ActorService {
     public void saveActor(Actor actor){
         actorRepository.save(actor);
     }
+
+    public void deleteActor(Long id){
+        if(actorRepository.existsById(id)){
+            actorRepository.deleteById(id);
+        }
+    }
 }

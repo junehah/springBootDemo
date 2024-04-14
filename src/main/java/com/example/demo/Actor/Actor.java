@@ -1,8 +1,6 @@
 package com.example.demo.Actor;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
@@ -10,20 +8,20 @@ import java.util.Date;
 @Table(name = "actor")
 public class Actor {
     @Id
+    @Column(name="actor_id")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long ActorId;
     private String FirstName;
     private String LastName;
     private Date LastUpdate;
 
-    public Actor() {
-    }
-
-    public Actor(Long actorId, String firstName, String lastName, Date lastUpdate) {
-        ActorId = actorId;
+    public Actor(String firstName, String lastName, Date lastUpdate) {
         FirstName = firstName;
         LastName = lastName;
         LastUpdate = lastUpdate;
     }
+
+    public Actor(){}
 
     public Long getActorId() {
         return ActorId;

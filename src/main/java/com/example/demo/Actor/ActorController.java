@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "api/v1/actor")
+@RequestMapping(path = "api/actor")
 public class ActorController {
 
     private final ActorService actorService;
@@ -26,9 +26,21 @@ public class ActorController {
         return actorService.GetActorById(id);
     }
 
-    @PostMapping
-    public ResponseEntity<String> createActor(@RequestBody Actor actor){
+    @PostMapping(path = "/save-actor")
+    public ResponseEntity<String> saveActor(@RequestBody Actor actor){
         actorService.saveActor(actor);
         return new ResponseEntity<String>("Actor was created", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(path="/delete-actor/{id}")
+    public ResponseEntity<String> deleteActorById(@PathVariable("id") Long id){
+        ResponseEntity<String> responseEntity;
+        try{
+            actorService.deleteActor(id);
+            responseEntity = new ResponseEntity<String>("Actor was deleted", HttpStatus.OK);
+        } catch (Exception e){
+            responseEntity = new ResponseEntity<String>("Unable to delete movie", HttpStatus.OK);
+        }
+        return responseEntity;
     }
 }
